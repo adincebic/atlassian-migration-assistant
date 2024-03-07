@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Domain Setting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 300px;
+      margin: 100px auto;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter your company domain</h2>
+    <input type="text" id="domainInput" placeholder="Enter your domain (like example.com)">
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
+    <button id="saveButton">Save</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
