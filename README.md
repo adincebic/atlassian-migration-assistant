@@ -5,7 +5,7 @@ A simple approach to solving issues with dead links after migrating from on-prem
 # Download on public extension stores
 
 * [Download for Google Chrome](https://chromewebstore.google.com/detail/atlassian-migration-assis/fpicipoljgohdicbdggmkomljoeniipi?hl=en-US&utm_source=ext_sidebar)
-* [Download for Mozilla FireFox]()https://addons.mozilla.org/en-US/firefox/addon/atlassian-migration-assistant/
+* [Download for Mozilla FireFox](https://addons.mozilla.org/en-US/firefox/addon/atlassian-migration-assistant/)
 
 
 # What about Safari?
