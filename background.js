@@ -8,35 +8,29 @@ chrome.runtime.onInstalled.addListener(function (object) {
     }
 });
 
-chrome.webNavigation.onBeforeNavigate.addListener(function(details) {
+chrome.webNavigation.onCommitted.addListener(function(details) {
 
-    var domainStorageKey = "com.adincebic.atlassianMigrationAssistant.domain";
+    let domainStorageKey = "com.adincebic.atlassianMigrationAssistant.domain";
     chrome.storage.local.get([domainStorageKey]).then((result) => {
-        var domain = result[domainStorageKey];
+        let domain = result[domainStorageKey];
         
         var components = domain.split('.');
         components.pop();
-        var hostWithoutDomain = components.join('.');
+        let hostWithoutDomain = components.join('.');
 
         var url = new URL(details.url);
-        var confluenceDomain = `confluence.${domain}`;
+        let confluenceDomain = `confluence.${domain}`;
 
-        if (url.hostname === confluenceDomain) {
-            var newUrl = url.href.replace(confluenceDomain, `${hostWithoutDomain}.atlassian.net/wiki`);
+        if (url.hostname === confluenceDomain && !url.pathname.includes("auth")) {
+
+            let newUrl = url.href.replace(confluenceDomain, `${hostWithoutDomain}.atlassian.net/wiki`);
             chrome.tabs.update(details.tabId, {url: newUrl});
         }
 
-        var jiraDomain = `jira.${domain}`;
-        if (url.hostname === jiraDomain) {
-            var pathname = url.pathname;
-            var ticketIdPattern = /[a-z]+-\d+/i;
-
-            if (ticketIdPattern.test(pathname)) {
-                pathname = pathname.replace(/^\/+/, '');
-                pathname = "/browse/" + pathname;
-            }
-
-            var newUrl = `https://${hostWithoutDomain}.atlassian.net` + pathname + url.search;
+        let jiraDomain = `jira.${domain}`;
+        if (url.hostname === jiraDomain && !url.pathname.includes("auth")) {
+            
+            let newUrl = url.href.replace(jiraDomain, `${hostWithoutDomain}.atlassian.net`);
             chrome.tabs.update(details.tabId, {url: newUrl});
         }
 
