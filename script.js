@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var domainInput = document.getElementById('domainInput');
-  var saveButton = document.getElementById('saveButton');
-  var errorMessage = document.getElementById('errorMessage');
+  let domainInput = document.getElementById('domainInput');
+  let confluenceCheckbox = document.getElementById('confluence-checkbox');
+  let saveButton = document.getElementById('saveButton');
+  let errorMessage = document.getElementById('errorMessage');
   
   
   saveButton.addEventListener('click', function() {
@@ -25,6 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function saveDomain(domain) {
+    let confleuenceEnabledStorageKey = "com.adincebic.atlassianMigrationAssistant.confluenceEnabled"
+    chrome.storage.local.set({ confleuenceEnabledStorageKey: confluenceCheckbox.checked }, function(){
+      console.log("Confluence enabled: ", confluenceCheckbox.checked);
+    });
+
     chrome.storage.local.set({ "com.adincebic.atlassianMigrationAssistant.domain": domain }, function(){
 
       console.log(`Saved domain: ${domain}`);

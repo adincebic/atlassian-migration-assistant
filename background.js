@@ -19,13 +19,22 @@ chrome.webNavigation.onCommitted.addListener(function(details) {
         let hostWithoutDomain = components.join('.');
 
         var url = new URL(details.url);
-        let confluenceDomain = `confluence.${domain}`;
+        let confleuenceEnabledStorageKey = "com.adincebic.atlassianMigrationAssistant.confluenceEnabled";
+        chrome.storage.local.get([confleuenceEnabledStorageKey]).then((result) => {
+            let confluenceEnabled = result[confleuenceEnabledStorageKey];
+
+            if (!confluenceEnabled) {
+                return;
+            }
+
+            let confluenceDomain = `confluence.${domain}`;
 
         if (url.hostname === confluenceDomain && !url.pathname.includes("auth")) {
 
             let newUrl = url.href.replace(confluenceDomain, `${hostWithoutDomain}.atlassian.net/wiki`);
             chrome.tabs.update(details.tabId, {url: newUrl});
         }
+        });
 
         let jiraDomain = `jira.${domain}`;
         if (url.hostname === jiraDomain && !url.pathname.includes("auth")) {
